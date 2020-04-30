@@ -37,7 +37,7 @@ demo 包含以下功能
    ```
   + 1、let id = wx.WebIM.conn.getUniqueId() // 生成本地消息id
   + 2、let msg = new wx.WebIM.message('txt', id); // 创建文本消息
-    3、msg.set({                              
+  + 3、msg.set({                              
       msg: tsxtMsg,    // 消息体内容 
       to: roomId,      // 接收房间号
       from,            //发送方
@@ -54,9 +54,9 @@ demo 包含以下功能
   ### demo中收到普通消息：
   + 在微信钩子函数中监听 onTextMessage 事件，通过sdk返回的成功回调，获取消息体。将消息体里的内容提取，通过this.setData()做消息上屏 
   >（详情请看 onTextMessage() 事件）
-------
+
   ### demo中发送自定义消息（礼物、点赞消息等）
-    ```
+  ```
   + 1、let id = wx.WebIM.conn.getUniqueId() // 生成本地消息id
   + 2、let msg = new wx.WebIM.message('txt', id); // 创建文本消息
   + 3、
@@ -72,7 +72,7 @@ demo 包含以下功能
     })
   + 4、msg.setGroup('groupchat') // 调用sdk接收成功的回调消息体
   + 5、wx.WebIM.conn.send(msg.body) // socket 发送
-    ```
+  ```
   >（详情请看 sendGiftMsg()、giveLike()、sendSubtitles() 事件）
 
   ### demo中发送自定义消息（礼物、点赞消息等）
