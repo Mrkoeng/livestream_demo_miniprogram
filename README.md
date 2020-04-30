@@ -32,9 +32,46 @@ demo 包含以下功能
 如果想快速搭建起一个有im能力的直播小程序，可以选择复用demo中的代码，其中utils以帮助快速集成sdk，template组件里面包含礼物系统、直播列表card等
 
 # 常见问题
-+ 怎么发扩展消息？
++ 怎么收发消息 ?（普通消息、自定义消息)
+  ### demo中发送普通消息：
+  + 1、let id = wx.WebIM.conn.getUniqueId() // 生成本地消息id
+  + 2、let msg = new wx.WebIM.message('txt', id); // 创建文本消息
+    3、msg.set({                              
+      msg: tsxtMsg,    // 消息体内容 
+      to: roomId,      // 接收房间号
+      from,            //发送方
+      roomType: true,  // 通过roomType区分聊天室、群组，true为聊天室，false为群组
+      ext: { nickName: this.data.nickName },  //扩展消息
+      success: function (id, serverMsgId) {}, //成功后的回调
+      fail: function (e) {} // 失败回调
+    });
+  + 4、msg.setGroup('groupchat') // 调用sdk接收成功的回调消息体
+  + 5、wx.WebIM.conn.send(msg.body) // socket 发送
+  （详情请看demo中 sendTextMsg() 这个方法）
 
-  构造消息的时候msg.set(option)， option中传人ext字段，即可发送扩展消息,具体可以查看[文档](http://docs-im.easemob.com/im/applet/message#%E5%8F%91%E9%80%81%E6%96%87%E6%9C%AC%E6%B6%88%E6%81%AF_%E5%8D%95%E8%81%8A)。
+  ### demo中收到普通消息：
+  + 在微信钩子函数中监听 onTextMessage 事件，通过sdk返回的成功回调，获取消息体。将消息体里的内容提取，通过this.setData()做消息上屏 
+  （详情请看 onTextMessage() 事件）
+
+  ### demo中发送自定义消息（礼物、点赞消息等）
+  + 1、let id = wx.WebIM.conn.getUniqueId() // 生成本地消息id
+  + 2、let msg = new wx.WebIM.message('txt', id); // 创建文本消息
+    3、msg.set({
+      to: roomId,
+      roomType: true,
+      customEvent: 'chatroom_gift', // 自定义事件
+      customExts: { note: self.data.giftModaData.giftName }, // 自定义消息扩展
+      params: { id: 'gift_' + self.data.giftModaData.showGiftId, num: giftNum }, //自定义消息参数（这里展示的是礼物类别以及送的礼物数量）
+      success: function () {},
+      fail: function () {},
+      ext: { nickName: self.data.nickName }
+    })
+  + 4、msg.setGroup('groupchat') // 调用sdk接收成功的回调消息体
+  + 5、wx.WebIM.conn.send(msg.body) // socket 发送
+  （详情请看 sendGiftMsg()、giveLike()、sendSubtitles() 事件）
+
+  ### demo中发送自定义消息（礼物、点赞消息等）
+  + 与收到普通消息大同小异。在微信钩子函数中监听 onCustomMessage 事件，通过sdk返回的成功回调，来做数据处理
 
 # 写在最后
 第一期直播小程序demo完善了直播间聊天部分，主播开播下播、白名单用户、房间禁言等 [礼物、点赞类的实现的仅仅是静态示例。真正结合实际应用场景还需要用户根据自己的需求完善]
