@@ -1,0 +1,61 @@
+.giftModa {
+    position  : absolute;
+    bottom    : 0;
+    display   : flex;
+    width     : 100%;
+    height    : 50%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index   : 888;
+    color     : #ffffff;
+}
+
+.mask {
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    width   : 100%;
+    height  : 50%;
+}
+
+.giftImg {
+    width  : 80rpx;
+    height : 80rpx;
+    display: block;
+    margin : 20rpx auto;
+}
+
+.gift-item {
+    display   : inline-block;
+    height    : 180rpx;
+    width     : 24%;
+    /* padding: 20rpx; */
+    text-align: center;
+
+}
+
+.active {
+    box-shadow: rgb(11, 234, 235) 0px 0px 10px inset;
+}
+
+.btn-area,
+.section {
+    display: inline-block;
+}
+
+.section {
+    margin-right: 10px;
+}
+
+.gift-text {
+    margin-right: 10px;
+}
+
+.gift-record {
+    position: absolute;
+    right   : 0;
+    top: 11px;
+    color: rgba(255, 255, 255,.5)
+}
+.gift-record .gf-text{
+    margin-right: 10px;
+}

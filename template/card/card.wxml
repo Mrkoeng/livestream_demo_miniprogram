@@ -1,0 +1,45 @@
+<!-- 正在直播 -->
+<template name="card">
+  <view class="card">
+    <view class="card-item" wx:for="{{data}}" wx:for-item="cardData" wx:key="id" data-liveroom="{{cardData}}" bindtap='golive'>
+      <image src="{{cardData.cover}}" mode="widthFix" class="pictrue"></image>
+      <!-- 正在直播图标 -->
+      <view class="active">
+        <image class="active-icon" src="../../images/live-icon.png" />
+        <text style="color:whit">正在直播</text>
+      </view>
+      <!-- <view class="title">{{cardData.title}}</view> -->
+      <view class="userinfo">
+        <text class="username">{{cardData.owner}}</text>
+        <view class="count">
+          <text style="margin-left:4rpx;">{{cardData.affiliations_count}}正在看</text>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
+<!-- 立即开播 -->
+<template name="activeCard">
+  <view class="card">
+    <view class="card-item" wx:for="{{data}}" wx:for-item="cardData" wx:key="{{cardData.userId}}">
+      <view wx:if="{{cardData.status === 'offline'}}" style="height:320rpx" data-liveroom="{{cardData}}" bindtap='createdLive'>
+        <image src="{{cardData.url}}" class="activeCard-bg"></image>
+        <!-- 立即开播状态 -->
+        <image class="open-live" src="/images/lijikaibo.png" />
+      </view>
+
+      <!-- 直播中（无法点击） -->
+      <view wx:else >
+        <view class="off-bg"></view>
+        <image src="{{cardData.cover}}" mode="widthFix" class="pictrue"></image>
+        <image class="off-live" src="/images/noChange.png"/>
+        <view class="userinfo">
+          <text class="username">{{cardData.owner}}</text>
+          <view class="count">
+            <text style="margin-left:4rpx;">{{cardData.affiliations_count}}正在看</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</template>
